@@ -4,10 +4,17 @@ clientSocket = socket.socket()
 clientSocket.connect(('127.0.0.1', 9123))
 def sendMessage():
     while True:
-        text = input("Введите сообщение:")
-        clientSocket.send(text.encode())
-thread = threading.Thread(target=sendMessage)
+        try:
+            text = input("Введите сообщение:")
+            clientSocket.send(text.encode())
+        except:
+            break
+
+def getResponse():
+    while True:
+        response = clientSocket.recv(1024)
+        print("\nСервер: " + response.decode() + "\nВведите сообщение:")
+
+thread = threading.Thread(target=getResponse)
 thread.start()
-while True:
-    response = clientSocket.recv(1024)
-    print("\nСервер: "+response.decode()+"\nВведите сообщение:")
+sendMessage()

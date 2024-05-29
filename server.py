@@ -6,11 +6,16 @@ serverSocket.listen(1)
 sockets = []
 print('Сервер запущен!')
 def chatting(clientSocket):
-    while True:
-        data = clientSocket.recv(1024)
-        print("Сообщение от клиента: "+data.decode())
-        for clientSocket1 in sockets:
-            clientSocket1.send(data)
+    try:
+        while True:
+            data = clientSocket.recv(1024)
+            print("Сообщение от клиента: "+data.decode())
+            for clientSocket1 in sockets:
+                clientSocket1.send(data)
+    except:
+        print("Пользователь покинул чат")
+    finally:
+        clientSocket.close()
 
 while True:
     print("Ожидаем подключения клиента....")
