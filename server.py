@@ -15,6 +15,7 @@ def chatting(clientSocket):
     except:
         print("Пользователь покинул чат")
     finally:
+        sockets.remove(clientSocket)
         clientSocket.close()
 
 while True:
