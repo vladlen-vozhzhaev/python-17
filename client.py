@@ -13,7 +13,7 @@ def sendMessage():
 def getResponse():
     while True:
         response = clientSocket.recv(1024)
-        print("\nСервер: " + response.decode() + "\nВведите сообщение:")
+        print(response.decode() + "\nВведите сообщение:")
 
 thread = threading.Thread(target=getResponse)
 thread.start()
